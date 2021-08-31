@@ -20,7 +20,7 @@ Webcam.set({
     
     console.log('ml5 veraion:', ml5.version);
     
-    classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/0qjd23DCR/model.json', modelLoaded);
+    classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/vcXRnIrjW/model.json', modelLoaded);
     
     function modelLoaded() {
         console.log('Model Loaded!');
@@ -34,3 +34,50 @@ Webcam.set({
         synth.speak(utterThis);
     
     }
+
+    function check()
+{
+    img = document.getElementById('captured_image');
+    classifier.classify(img, gotResult);
+}
+
+function gotResult(error, result) {
+    if (error) {
+        console.error(error);
+    }
+     else {
+    console.log(result);
+
+        document.getElementById("emotion").innerHTML=result[0].label;
+    document.getElementById("emotion2").innerHTML=result[1].label;
+    prediction_1=result[0].label;
+    prediction_2=result[1].label;
+    speak();
+
+    if(prediction_1== "Amazing"){
+    document.getElementById("emoji").innerHTML="&#128076;";
+
+        
+    }
+    if(prediction_1== "Victory"){
+        document.getElementById("emoji").innerHTML="&#x270C;";
+    }
+
+    if(prediction_1== "Good Luck"){
+        document.getElementById("emoji").innerHTML="&#128077;;";
+    }
+
+    if(prediction_2== "Amazing"){
+        document.getElementById("emoji2").innerHTML="&#128076;";
+    
+            
+        }
+        if(prediction_2== "Victory"){
+            document.getElementById("emoji2").innerHTML="&#x270C;";
+        }
+    
+        if(prediction_2== "Good Luck"){
+            document.getElementById("emoji2").innerHTML="&#128077;";
+        }
+    }
+}
